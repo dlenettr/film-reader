@@ -1,0 +1,26 @@
+* {outline: None;}
+tr.list {border-bottom: 1px dotted #999;}
+tr.list td {padding:5px; color: #555; }
+tr.list:hover {background:#FCFCC8;}
+tr.head {border-bottom: 1px dotted #999;}
+tr.head td {padding:5px; color: #555; font-weight: bold; }
+tr.head:hover {background:#FCFCC8;}
+tr.imgs td {padding:5px;}
+.imgtype { border: 1px solid #dedede; border-radius: 5px; margin: -15px; height: 100px; }
+.imgtype:hover { background-color: #fafafa; cursor: pointer; }
+.htaccess_code { width: 100%; height: 20px; display: none; }
+#htaccess_close { display: none; }
+.req-add { background-color: #E9FFDD; }
+.ui-notify { width:350px; position:fixed; top:10px; right:10px; }
+.ui-notify-message, #hintbox { padding:10px; margin-bottom:15px; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px }
+.ui-notify-message h1 { font-size:12px; margin:0; padding:0 }
+.ui-notify-message p { margin:3px 0; padding:0; line-height:16px }
+.ui-notify-message:last-child { margin-bottom:0 }
+.ui-notify-message-style, #hintbox { background:#000; background:rgba(0,0,0,0.8); -moz-box-shadow: 0 0 6px #000; -webkit-box-shadow: 0 0 6px #000; box-shadow: 0 0 6px #000; }
+.ui-notify-message-style h1 , .ui-notify-message-style p, #hintbox { color:#fff }
+.ui-notify-cross { margin-top:-4px; float:right; cursor:pointer; text-decoration:none; font-size:12px; font-weight:bold; text-shadow:0 1px 1px #fff; padding:2px }
+.ui-notify-cross:hover { color:#ffffab }
+.ui-notify-cross:active { position:relative; top:1px }
+#nprogress { pointer-events: none; -webkit-pointer-events: none; }
+#nprogress .bar { background: red; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 2px; }
+#nprogress .peg { display: block; position: absolute; right: 0px; width: 100px; height: 100%; box-shadow: 0 0 10px red, 0 0 5px red; opacity: 1.0; -webkit-transform: rotate(3deg) translate(0px, -4px); -moz-transform: rotate(3deg) translate(0px, -4px); -ms-transform: rotate(3deg) translate(0px, -4px); -o-transform: rotate(3deg) translate(0px, -4px); transform: rotate(3deg) translate(0px, -4px); }
