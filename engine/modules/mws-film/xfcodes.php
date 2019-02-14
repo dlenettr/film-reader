@@ -1,9 +1,9 @@
 <?php
 /*
 =============================================
- Name      : MWS Film Reader v1.8
+ Name      : Film Reader v1.8.3
  Author    : Mehmet Hanoğlu ( MaRZoCHi )
- Site      : https://dle.net.tr/
+ Site      : https://mehmethanoglu.com.tr
  License   : MIT License
 =============================================
 */

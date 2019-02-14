@@ -1,9 +1,9 @@
 <?php
 /*
 =============================================
- Name      : MWS Film Reader v1.8
+ Name      : Film Reader v1.8.3
  Author    : Mehmet Hanoğlu ( MaRZoCHi )
- Site      : https://dle.net.tr/
+ Site      : https://mehmethanoglu.com.tr
  License   : MIT License
 =============================================
 */
@@ -84,36 +84,7 @@ foreach( xfieldsload() as $xarr) {
 	$xfields[$xarr[0]] = $xarr[1] . "\t(". $xarr[0] . ")";
 }
 
-$count = $db->super_query("SELECT COUNT(id) as n FROM " . PREFIX . "_mws_film_requests WHERE active = '1' AND added = '0'");
-$count = ( $count['n'] == "0" ) ? "" : " <font color='green'>(+{$count['n']})</font>";
-
-
 echo $JS_CSS;
-echo <<< HTML
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-sm-4">
-				<a href="javascript:window.location='{$PHP_SELF}?mod={$MNAME}'" title="">
-					<i class="fa fa-wrench"></i> <span>{$lng_inc['00']}</span>
-				</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="javascript:window.location='{$PHP_SELF}?mod={$MNAME}&action=requests'" title="">
-					<i class="fa fa-comments"></i> <span>{$lng_inc['147']}{$count}</span>
-				</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="javascript:window.location='{$PHP_SELF}?mod={$MNAME}&action=flush'" title="">
-					<i class="fa fa-trash"></i> <span>{$lng_inc['101']}</span>
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-HTML;
-
-
 echo <<< HTML
 <div class="row">
 HTML;
@@ -158,8 +129,6 @@ if ( $_REQUEST['action'] == "flush" && $_REQUEST['do'] == "delete" ) {
 	</tr>
 HTML;
 	mainTable_foot();
-
-
 
 
 } else if ( $_REQUEST['action'] == "flush" ) {
@@ -218,41 +187,6 @@ HTML;
 		mainTable_foot();
 	}
 	unset( $dbimages, $directory, $images, $total, $total_size, $html );
-
-} else if ( $_REQUEST['action'] == "requests" ) {
-
-	mainTable_head($lng_inc['148'], "<input type=\"button\" class=\"btn btn-sm btn-red\" onclick=\"window.location='{$PHP_SELF}?mod={$MNAME}'\" value=\"&laquo; {$lng_inc['24']}\" />");
-	echo <<< HTML
-	<tr>
-		<td>{$lng_inc['139']}</td>
-		<td>{$lng_inc['140']}</td>
-		<td>{$lng_inc['141']}</td>
-		<td>{$lng_inc['142']}</td>
-		<td>{$lng_inc['143']}</td>
-		<td></td>
-		<td align="center"><input type="button" class="btn btn-sm btn-red" onclick="flush_logs();" value="{$lng_inc['183']}" /></td>
-		<td align="center"><input type="button" class="btn btn-sm btn-blue" onclick="requests('*', 'delall');" value="{$lng_inc['144']}" /></td>
-	</tr>
-HTML;
-	$db->query("SELECT * FROM " . PREFIX . "_mws_film_requests WHERE active = '1' AND added = '0' ORDER BY count DESC");
-
-	while ( $row = $db->get_row() ) {
-		$date = date("Y-m-d H:i", $row['date']);
-		echo <<< HTML
-		<tr class="list" id="req-{$row['id']}">
-			<td>{$row['title']}</td>
-			<td>{$row['url']}</td>
-			<td>{$row['user_name']}</td>
-			<td>{$date}</td>
-			<td>{$row['count']}</td>
-			<td align="center"><input type="button" onclick="requests('{$row['id']}', 'del');" value="{$lng_inc['145']}" class="btn btn-sm btn-red" /></td>
-			<td align="center"><input type="button" onclick="requests('{$row['id']}', 'add');" value="{$lng_inc['146']}" class="btn btn-sm btn-green" /></td>
-			<td align="center"><input type="button" onclick="requests('{$row['id']}', 'dls');" value="{$lng_inc['197']}" class="btn btn-sm btn-lightblue" /></td>
-		</tr>
-HTML;
-	}
-	mainTable_foot();
-
 
 } else {
 
@@ -364,6 +298,7 @@ HTML;
 			</ul>
 		    <div class="heading-elements">
 		        <ul class="icons-list">
+					<li><a href="javascript:window.location='{$PHP_SELF}?mod={$MNAME}&action=flush'" title=""><i class="fa fa-trash"></i> <span>{$lng_inc['101']}</span></a></li>
 					<li><a href="#" onclick="ShowAlert('{$lng_inc['68']}', '{$lng_inc['67']}'); return false;"><i class="fa fa-info"></i> {$lng_inc['69']}</a></li>
 					<li><a href="#" class="panel-fullscreen"><i class="fa fa-expand"></i></a></li>
 				</ul>
@@ -746,96 +681,6 @@ HTML;
 		</td>
 	</tr>
 HTML;
-	closeTab();
-
-
-	openTab( "requests" );
-	showRow(
-		$lng_inc['154'],
-		$lng_inc['155'],
-		makeDropDown(array(
-				"date"  => $lng_inc['156'],
-				"title"  => $lng_inc['157'],
-				"count"  => $lng_inc['158'],
-				"type"  => $lng_inc['159'],
-				"url"  => $lng_inc['160'],
-			),"save[req_order_col]", "{$mws_film['req_order_col']}"
-		) . "<br /><br />" .
-		makeDropDown(array(
-				"ASC"  => $lng_inc['161'],
-				"DESC" => $lng_inc['162'],
-			),"save[req_order_by]", "{$mws_film['req_order_by']}"
-		) . "<br /><br />" .
-		"<input type=\"text\" class=\"form-control\" style=\"width: 60px\" name=\"save[req_order_limit]\" value=\"{$mws_film['req_order_limit']}\">"
-	);
-	$cat = showCategories( "save[req_cat]", $mws_film['req_cat'] );
-	showRow(
-		$lng_inc['163'],
-		$lng_inc['164'],
-		$cat
-	);
-	showRow(
-		$lng_inc['37'],
-		$lng_inc['38'],
-		makeDropDown(
-			array(
-				"1"  => $lng_inc['37'] . " : " . $lng_inc['87'],
-				"0" => $lng_inc['37'] . " : " . $lng_inc['88']
-			), "save[req_achange]", "{$mws_film['req_achange']}"
-		)
-	);
-	showRow(
-		$lng_inc['165'],
-		"",
-		makeDropDown(
-			array(
-				"0"  => $lng_inc['166'],
-				"1"  => $lng_inc['205'],
-				"2"  => $lng_inc['206'],
-			), "save[req_multi]", "{$mws_film['req_multi']}"
-		) . "<br /><br />" .
-		"<input type=\"text\" style=\"width: 40%\" class=\"form-control\" placeholder=\"" . $lng_inc['207'] . "\" size=\"5\" name=\"save[req_multi_dlimit]\" value=\"{$mws_film['req_multi_dlimit']}\">&nbsp;&nbsp;" .
-		"<input type=\"text\" style=\"width: 40%\" class=\"form-control\" placeholder=\"" . $lng_inc['208'] . "\" size=\"5\" name=\"save[req_multi_rlimit]\" value=\"{$mws_film['req_multi_rlimit']}\">" .
-		"<br /><br /><span>" . $lng_inc['178'] . "</span><br />" .
-		makeButton( "save[req_multic]", $mws_film['req_multic'] )
-	);
-	showRow(
-		$lng_inc['167'],
-		$lng_inc['168'],
-		makeButton( "save[req_same]", $mws_film['req_same'] )
-	);
-	showRow(
-		$lng_inc['169'],
-		$lng_inc['170'],
-		makeButton( "save[req_del_post]", $mws_film['req_del_post'] )
-	);
-	showRow(
-		$lng_inc['171'],
-		$lng_inc['172'],
-		makeButton( "save[req_add_as]", $mws_film['req_add_as'] )
-	);
-	showRow(
-		$lng_inc['181'],
-		$lng_inc['182'],
-		makeDropDown(array(
-				"1" => $lng_inc['87'],
-				"0" => $lng_inc['88'],
-			),"save[req_notify]", "{$mws_film['req_notify']}"
-		) . "<br /><br />" . makeDropDown(array(
-				"1" => $lng_inc['179'],
-				"0" => $lng_inc['180']
-			),"save[req_notifyall]", "{$mws_film['req_notifyall']}"
-		) . "&nbsp;&nbsp;" .
-		"<br /><br /><div id=\"ntext\"><br />" .
-			makeCheckbox( array( "pm" => $lng_inc['173'], "mail" => $lng_inc['184'] ), "save[req_notify_type]", $mws_film['req_notify_type'] ) .
-			"<br /><br />'{$lng_inc['146']}' {$lng_inc['199']}<br />
-			<input type=\"text\" class=\"form-control\" style=\"width: 70%\" name=\"save[req_notify_title]\" value=\"{$mws_film['req_notify_title']}\">&nbsp;<input type=\"button\" class=\"btn btn-sm btn-default\" onclick=\"ShowAlert('{$lang['p_info']}', '{$lng_inc['153']}', this, event, '300px')\" value=\"?\" /><br /><br />
-			<textarea class=\"form-control\" style=\"width:350px;height:120px;\" name=\"save[req_notify_text]\">{$mws_film['req_notify_text']}</textarea>&nbsp;<input type=\"button\" class=\"btn btn-sm btn-default\" onclick=\"ShowAlert('{$lang['p_info']}', '{$lng_inc['152']}', this, event, '300px')\" value=\"?\" />
-			<br /><br />'{$lng_inc['197']}' {$lng_inc['199']}<br />
-			<input type=\"text\" class=\"form-control\" style=\"width: 70%\" name=\"save[req_notify2_title]\" value=\"{$mws_film['req_notify2_title']}\">&nbsp;<input type=\"button\" class=\"btn btn-sm btn-default\" onclick=\"ShowAlert('{$lang['p_info']}', '{$lng_inc['153']}', this, event, '300px')\" value=\"?\" /><br /><br />
-			<textarea class=\"form-control\" style=\"width:350px;height:120px;\" name=\"save[req_notify2_text]\">{$mws_film['req_notify2_text']}</textarea>&nbsp;<input type=\"button\" class=\"btn btn-sm btn-default\" onclick=\"ShowAlert('{$lang['p_info']}', '{$lng_inc['152']}', this, event, '300px')\" value=\"?\" />
-		</div>"
-	);
 	closeTab();
 
 	echo <<< HTML

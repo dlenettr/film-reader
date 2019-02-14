@@ -1,9 +1,9 @@
 <?php
 /*
 =============================================
- Name      : MWS Film Reader v1.8
+ Name      : Film Reader v1.8.3
  Author    : Mehmet Hanoğlu ( MaRZoCHi )
- Site      : http://dle.net.tr/
+ Site      : https://mehmethanoglu.com.tr
  License   : MIT License
 =============================================
 */
@@ -295,27 +295,6 @@ function ReadCode() {
 	ShowAlert('{$lang['p_info']}', 'OK');
 }
 
-function requests(id, method) {
-	if ( method == 'delall' ) ShowAlert( '{$lng_inc['149']}', '{$lng_inc['151']}' );
-	ShowLoading();
-	$.post("engine/ajax/controller.php?mod=mws-film", { film_request: 'yes', req_id: id, req_type: method }, function(data) {
-		if ( method == 'del' ) {
-			$("#req-" + id).fadeOut();
-		} else if ( method == 'dls' && data == 'ok' ) {
-			$("#req-" + id).fadeOut();
-			ShowAlert( '{$lng_inc['149']}', '{$lng_inc['198']}' );
-		} else if ( method == 'add' && data == 'ok' ) {
-			$("#req-" + id).addClass('req-add');
-			ShowAlert( '{$lng_inc['149']}', '{$lng_inc['150']}' );
-			setTimeout(function() { $("#req-" + id).fadeOut(); }, 5000);
-		} else if ( method == 'delall' && data == 'ok' ) {
-			setTimeout(function() { $("tr.list").fadeOut(); }, 3000);
-		}
-	}).done(function() {
-		HideLoading();
-	});
-}
-
 function add_htaccess( ) {
 	$.post("engine/ajax/controller.php?mod=mws-film", { add_htaccess: 'do' }, function(data) {
 		window.location.reload();
@@ -325,12 +304,6 @@ function add_htaccess( ) {
 function add_xfields( ) {
 	$.post("engine/ajax/controller.php?mod=mws-film", { add_xfields: 'do' }, function(data) {
 		window.location.reload();
-	});
-}
-
-function flush_logs( ) {
-	$.post("engine/ajax/controller.php?mod=mws-film", { flush_logs: 'do' }, function(data) {
-		if ( data == "ok" ) ShowAlert( '{$lng_inc['149']}', 'OK' );
 	});
 }
 
@@ -350,19 +323,6 @@ function htaccess_copy() {
 	$("#htaccess_code").animate({height: '20px'});
 	//$(".htaccess_code").fadeOut();
 }
-
-$(document).ready(function() {
-	$(".imgtype").click(function() {
-		var num = $(this).attr('type');
-		$("#image_type").val( num ).attr('selected', true).change();
-	});
-	$("select[type='fieldtype']").change(function() {
-		var selv = $("option:selected", this).val();
-		var self = $(this).attr('data');
-		if ( selv == "custom" ) { $("#" + self).fadeIn(); }
-		else { $("#" + self).fadeOut(); }
-	});
-});
 </script>
 <style type="text/css" media="all">
 {$setstyle}

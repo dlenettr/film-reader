@@ -1,9 +1,9 @@
 <?php
 /*
 =============================================
- Name      : MWS Film Reader v1.8
+ Name      : Film Reader v1.8.3
  Author    : Mehmet Hanoğlu ( MaRZoCHi )
- Site      : https://dle.net.tr/
+ Site      : https://mehmethanoglu.com.tr
  License   : MIT License
 =============================================
 */
@@ -12,7 +12,6 @@ require_once ENGINE_DIR . "/data/config.php";
 require_once ENGINE_DIR . "/data/mws-film.conf.php";
 include_once ROOT_DIR . "/language/" . $config['langs'] . "/mws-film.lng";
 unset( $lng_inc );
-
 
 $imethod = ".val"; // .text for WYSIWYG
 
@@ -120,7 +119,7 @@ HTML;
 		$index = ( $mws_film['film_name'] == "_title_" ) ? $mws_film['film_namelocal'] : $mws_film['film_name'];
 		$trailer = $mws_film['film_trailer'];
 		$mtrailer = $mws_film['film_trailer_mobil'];
-		$add_tag .= <<<HTML
+		$add_tag .= <<< HTML
 
 		<style>
 		#trailer_table {margin: 5px 0;clear: both; }
@@ -222,7 +221,7 @@ else if ( $_GET['mod'] == "addnews" && $_GET['action'] == "addnews" ) {
 
 	}
 
-	echo <<<HTML
+	echo <<< HTML
 	<link rel="stylesheet" href="engine/skins/images/mws-film/styles.css" type="text/css" />
 	<script type="text/javascript" src="engine/skins/images/mws-film/jscripts.js"></script>
 	<script type="text/javascript">
@@ -307,7 +306,7 @@ HTML;
 		$index = ( $mws_film['film_name'] == "_title_" ) ? $mws_film['film_namelocal'] : $mws_film['film_name'];
 		$trailer = $mws_film['film_trailer'];
 		$mtrailer = $mws_film['film_trailer_mobil'];
-		echo <<<HTML
+		echo <<< HTML
 		<style>
 		#trailer_table {margin: 5px;clear: both;border: 1px solid #fff;border-bottom: 1px solid #dedede;}
 		#trailer_table ul {list-style: none;width: 1000px;height:280px;}
@@ -408,7 +407,7 @@ else if ( $_GET['mod'] == "editnews" && $_GET['action'] == "editnews" ) {
 		}
 	}
 
-	echo <<<HTML
+	echo <<< HTML
 	<link rel="stylesheet" href="engine/skins/images/mws-film/styles.css" type="text/css" />
 	<script type="text/javascript" src="engine/skins/images/mws-film/jscripts.js"></script>
 	<script type="text/javascript">
@@ -490,7 +489,7 @@ HTML;
 		$index = ( $mws_film['film_name'] == "_title_" ) ? $mws_film['film_namelocal'] : $mws_film['film_name'];
 		$trailer = $mws_film['film_trailer'];
 		$mtrailer = $mws_film['film_trailer_mobil'];
-		echo <<<HTML
+		echo <<< HTML
 		<style>
 		#trailer_table {margin: 5px;clear: both;border: 1px solid #fff;border-bottom: 1px solid #dedede;}
 		#trailer_table ul {list-style: none;width: 1000px;height:280px;}
