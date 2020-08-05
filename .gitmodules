@@ -1,0 +1,6 @@
+[submodule "engine/classes/mws-film/film-reader-plugins"]
+	path = engine/classes/mws-film/film-reader-plugins
+	url = https://github.com/dlenettr/film-reader-plugins
+[submodule "engine/classes/film-reader-plugins"]
+	path = engine/classes/film-reader-plugins
+	url = https://github.com/dlenettr/film-reader-plugins

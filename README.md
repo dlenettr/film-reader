@@ -1,4 +1,4 @@
-# DLE Film Reader
+# Film Reader
 <img src="https://img.shields.io/badge/dle-13.0+-007dad.svg"> <img src="https://img.shields.io/badge/lang-tr-ce600f.svg"> <img src="https://img.shields.io/badge/lang-en-ce600f.svg"> <img src="https://img.shields.io/badge/lang-ru-ce600f.svg"> <img src="https://img.shields.io/badge/license-MIT-60ce0f.svg">
 
 Film Reader modülü, film sitesi sahipleri için büyük bir kolaylık sağlar. Plugin sistemi sayesinde tek kurulum ile her siteden bilgileri çekebilirsiniz. Hızlı bir şekilde hedef siteden bilgileri çekebilir ayrıca kapak resmini de sitenize yükleyip otomatik olarak filigran ekletebilirsiniz. Bu işlemi manuel yapacak olsanız en az 2-3 dk'nızı alacaktır, modül ile 4-5 sn de halledebilirsiniz. Çektiğiniz verilerde oynama yapmanız gerekiyorsa. Bu değişiklikleri belirtilen kurallar ile otomatik değişim kısmına girerek otomatik olarak yapılmasını sağlayabilirsiniz.
